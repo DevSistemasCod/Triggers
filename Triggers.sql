@@ -1,7 +1,4 @@
-Aqui estão as triggers para os cenários que você descreveu com base nas tabelas fornecidas:
-
 -- 1) Impedir Inserção com Data de Admissão Futura:
-
 DELIMITER //
 CREATE TRIGGER before_insert_funcionario
 BEFORE INSERT
@@ -15,9 +12,7 @@ END //
 DELIMITER ;
 
 -- 2) Impedir a exclusão de Funcionário Alocado em um Projeto.
-
 DELIMITER //
-
 CREATE TRIGGER before_delete_func_alocado_em_proj
 BEFORE DELETE
 ON func_alocado_em_proj
@@ -28,10 +23,7 @@ BEGIN
         SET MESSAGE_TEXT = 'Não é possível excluir um funcionário alocado em um projeto concluído.';
     END IF;
 END //
-
 DELIMITER ;
-
-
 
 -- 3) Atribuir Cargo Padrão na Inserção de Funcionário:
 DELIMITER //
@@ -86,7 +78,6 @@ END //
 DELIMITER ;
 
 -- 7) Atribui  do Status de "Inativo" a Funcionários sem Alocações em Projetos.
-
 DELIMITER //
 CREATE TRIGGER after_insert_funcionario
 AFTER INSERT
@@ -101,9 +92,7 @@ BEGIN
 END //
 
 -- 8) Impedir a exclusão de Departamento com Funcionários Alocados.
-
 DELIMITER //
-
 CREATE TRIGGER before_delete_departamento
 BEFORE DELETE
 ON departamento
@@ -120,9 +109,7 @@ END //
 DELIMITER ;
 
 -- 9) Impedir a Atualização do CPF do Funcionário
-
 DELIMITER //
-
 CREATE TRIGGER before_update_cpf_funcionario
 BEFORE UPDATE
 ON info_pessoais_funcionario
@@ -133,5 +120,4 @@ BEGIN
         SET MESSAGE_TEXT = 'Não é permitido atualizar o CPF de um funcionário.';
     END IF;
 END //
-
 DELIMITER ;
