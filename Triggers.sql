@@ -1,4 +1,4 @@
--- 1) Impedir Inserção com Data de Admissão Futura:
+-- 1) Impedir a inserção com data de admissão futura:
 DELIMITER //
 CREATE TRIGGER before_insert_funcionario
 BEFORE INSERT
@@ -11,7 +11,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- 2) Impedir a exclusão de Funcionário Alocado em um Projeto.
+-- 2) Impedir a exclusão de funcionário alocado em um projeto.
 DELIMITER //
 CREATE TRIGGER before_delete_func_alocado_em_proj
 BEFORE DELETE
@@ -25,7 +25,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- 3) Atribuir Cargo Padrão na Inserção de Funcionário:
+-- 3) Atribuir cargo padrão na inserção de funcionário:
 DELIMITER //
 CREATE TRIGGER before_insert_funcionario
 BEFORE INSERT
@@ -34,10 +34,11 @@ FOR EACH ROW
 BEGIN 
 	IF NEW.cargo IS NULL THEN 
 		SET NEW.cargo = 'Cargo Padrão'; 
-	END IF;END //
+	END IF;
+END //
 DELIMITER ;
 
--- 4) Atualizar Contagem de Projetos por Funcionário:
+-- 4) Atualizar contagem de projetos por funcionário:
 DELIMITER //
 CREATE TRIGGER after_insert_func_alocado_em_proj
 AFTER INSERT
@@ -50,7 +51,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- 5) Restringir Acesso ao Concluir Projeto:
+-- 5) Restringir acesso ao concluir projeto:
 DELIMITER //
 CREATE TRIGGER after_update_projeto
 AFTER UPDATE
@@ -65,7 +66,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- 6) Manter Versão Anterior de Informações Pessoais:
+-- 6) Manter versão anterior de informações pessoais:
 DELIMITER //
 CREATE TRIGGER after_update_info_pessoais_funcionario
 AFTER UPDATE
@@ -77,7 +78,7 @@ BEGIN
 END //
 DELIMITER ;
 
--- 7) Atribui  do Status de "Inativo" a Funcionários sem Alocações em Projetos.
+-- 7) Atribuição do status de "Inativo" a funcionários sem alocações em projetos.
 DELIMITER //
 CREATE TRIGGER after_insert_funcionario
 AFTER INSERT
@@ -90,8 +91,9 @@ BEGIN
         WHERE codigo_funcionario = NEW.codigo_funcionario;
     END IF;
 END //
+DELIMITER ;
 
--- 8) Impedir a exclusão de Departamento com Funcionários Alocados.
+-- 8) Impedir a exclusão de departamento com funcionários alocados.
 DELIMITER //
 CREATE TRIGGER before_delete_departamento
 BEFORE DELETE
@@ -105,10 +107,9 @@ BEGIN
         SET MESSAGE_TEXT = 'Não é possível excluir um departamento com funcionários alocados.';
     END IF;
 END //
-
 DELIMITER ;
 
--- 9) Impedir a Atualização do CPF do Funcionário
+-- 9) Impedir a atualização do CPF do funcionário.
 DELIMITER //
 CREATE TRIGGER before_update_cpf_funcionario
 BEFORE UPDATE
